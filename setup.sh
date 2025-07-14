@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+set -eou pipefail
+
+CONFIG_REPO_DIR="$PWD"
+NVIM_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
+
+NVIM_LUA_DIR="$NVIM_CONFIG_DIR/lua"
+NVIM_AFTER_DIR="$NVIM_CONFIG_DIR/after"
+NVIM_PLUGINS_DIR="$NVIM_CONFIG_DIR/pack/plugins/start"
+NVIM_COLORSCHEMES_DIR="$NVIM_CONFIG_DIR/pack/colorschemes/start"
+
+
+printf "SETTING UP NEOVIM CONFIG\n"
+
+mkdir -p "$NVIM_CONFIG_DIR"
+mkdir -p "$NVIM_LUA_DIR"
+mkdir -p "$NVIM_AFTER_DIR"
+mkdir -p "$NVIM_PLUGINS_DIR"
+mkdir -p "$NVIM_COLORSCHEMES_DIR"
+
+cp "$CONFIG_REPO_DIR/init.lua" "$NVIM_CONFIG_DIR"
+cp -r "$CONFIG_REPO_DIR/lua/"* "$NVIM_LUA_DIR"
+cp -r "$CONFIG_REPO_DIR/after/"* "$NVIM_AFTER_DIR"
+
+declare -A plugins=(
+    ["nvim-cmp"]="https://github.com/hrsh7th/nvim-cmp"
+    ["lualine.nvim"]="https://github.com/nvim-lualine/lualine.nvim.git"
+    ["LuaSnip"]="https://github.com/L3MON4D3/LuaSnip"
+    ["cmp-nvim-lsp"]="https://github.com/hrsh7th/cmp-nvim-lsp"
+    ["nvim-lspconfig"]="https://github.com/neovim/nvim-lspconfig.git"
+    ["nvim-treesitter"]="https://github.com/nvim-treesitter/nvim-treesitter"
+    ["plenary.nvim"]="https://github.com/nvim-lua/plenary.nvim"
+    ["telescope.nvim"]="https://github.com/nvim-telescope/telescope.nvim.git"
+)
+
+declare -A colorschemes=(
+    ["onedark.nvim"]="https://github.com/navarasu/onedark.nvim.git"
+    ["gruvbox.nvim"]="https://github.com/ellisonleao/gruvbox.nvim.git"
+)
+
+printf "Cloning plugin repositories...\n"
+for name in "${!plugins[@]}"; do
+    printf " -> $name\n"
+    git clone --depth 1 "${plugins[$name]}" "$NVIM_PLUGINS_DIR/$name"
+done
+
+printf "Cloning colorscheme repositories...\n"
+for name in "${!colorschemes[@]}"; do
+    printf " -> $name\n"
+    git clone --depth 1 "${colorschemes[$name]}" "$NVIM_COLORSCHEMES_DIR/$name"
+done
+
+printf "\nSetup complete.\n"

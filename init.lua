@@ -1,4 +1,7 @@
+require('treesitter')
+require('lsp')
 require('keymaps')
+require('colorscheme')
 
 -- Enable relative line numbers combined with an absolute line
 -- number on the current position.
