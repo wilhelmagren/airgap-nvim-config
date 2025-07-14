@@ -1,2 +1,8 @@
+<div align="center">
+
 # airgap-nvim-config
-My neovim config - restructured for airgap environments.
+##### Neovim configuration prepared for air-gapped environments.
+
+</div>
+
+...
