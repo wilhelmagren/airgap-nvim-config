@@ -24,13 +24,15 @@ cp -r "$CONFIG_REPO_DIR/lua/"* "$NVIM_LUA_DIR"
 cp -r "$CONFIG_REPO_DIR/after/"* "$NVIM_AFTER_DIR"
 
 declare -A plugins=(
-    ["nvim-cmp"]="https://github.com/hrsh7th/nvim-cmp"
-    ["lualine.nvim"]="https://github.com/nvim-lualine/lualine.nvim.git"
-    ["LuaSnip"]="https://github.com/L3MON4D3/LuaSnip"
-    ["cmp-nvim-lsp"]="https://github.com/hrsh7th/cmp-nvim-lsp"
+    ["nvim-treesitter"]="https://github.com/nvim-treesitter/nvim-treesitter.git"
     ["nvim-lspconfig"]="https://github.com/neovim/nvim-lspconfig.git"
-    ["nvim-treesitter"]="https://github.com/nvim-treesitter/nvim-treesitter"
-    ["plenary.nvim"]="https://github.com/nvim-lua/plenary.nvim"
+    ["nvim-cmp"]="https://github.com/hrsh7th/nvim-cmp.git"
+    ["cmp-nvim-lsp"]="https://github.com/hrsh7th/cmp-nvim-lsp.git"
+    ["cmp-path"]="https://github.com/hrsh7th/cmp-path.git"
+    ["cmp-buffer"]="https://github.com/hrsh7th/cmp-buffer.git"
+    ["LuaSnip"]="https://github.com/L3MON4D3/LuaSnip.git"
+    ["lualine.nvim"]="https://github.com/nvim-lualine/lualine.nvim.git"
+    ["plenary.nvim"]="https://github.com/nvim-lua/plenary.nvim.git"
     ["telescope.nvim"]="https://github.com/nvim-telescope/telescope.nvim.git"
 )
 
