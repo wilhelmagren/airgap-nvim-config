@@ -2,7 +2,7 @@
 
 set -eou pipefail
 
-CONFIG_REPO_DIR="$PWD"
+CONFIG_REPO_DIR="$PWD/.config/nvim"
 NVIM_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
 
 NVIM_LUA_DIR="$NVIM_CONFIG_DIR/lua"
@@ -10,18 +10,39 @@ NVIM_AFTER_DIR="$NVIM_CONFIG_DIR/after"
 NVIM_PLUGINS_DIR="$NVIM_CONFIG_DIR/pack/plugins/start"
 NVIM_COLORSCHEMES_DIR="$NVIM_CONFIG_DIR/pack/colorschemes/start"
 
-
 printf "SETTING UP NEOVIM CONFIG\n"
 
+printf "mkdir -p '$NVIM_CONFIG_DIR'... "
 mkdir -p "$NVIM_CONFIG_DIR"
-mkdir -p "$NVIM_LUA_DIR"
-mkdir -p "$NVIM_AFTER_DIR"
-mkdir -p "$NVIM_PLUGINS_DIR"
-mkdir -p "$NVIM_COLORSCHEMES_DIR"
+printf "OK\n"
 
+printf "mkdir -p '$NVIM_LUA_DIR'... "
+mkdir -p "$NVIM_LUA_DIR"
+printf "OK\n"
+
+printf "mkdir -p '$NVIM_AFTER_DIR'... "
+mkdir -p "$NVIM_AFTER_DIR"
+printf "OK\n"
+
+printf "mkdir -p '$NVIM_PLUGINS_DIR'... "
+mkdir -p "$NVIM_PLUGINS_DIR"
+printf "OK\n"
+
+printf "mkdir -p '$NVIM_COLORSCHEMES_DIR'... "
+mkdir -p "$NVIM_COLORSCHEMES_DIR"
+printf "OK\n"
+
+printf "\ncp '$CONFIG_REPO_DIR/init.lua' '$NVIM_CONFIG_DIR'... "
 cp "$CONFIG_REPO_DIR/init.lua" "$NVIM_CONFIG_DIR"
+printf "OK\n"
+
+printf "\ncp '$CONFIG_REPO_DIR/lua/*' '$NVIM_LUA_DIR'... "
 cp -r "$CONFIG_REPO_DIR/lua/"* "$NVIM_LUA_DIR"
+printf "OK\n"
+
+printf "\ncp '$CONFIG_REPO_DIR/after/*' '$NVIM_AFTER_DIR'... "
 cp -r "$CONFIG_REPO_DIR/after/"* "$NVIM_AFTER_DIR"
+printf "OK\n"
 
 declare -A plugins=(
     ["nvim-treesitter"]="https://github.com/nvim-treesitter/nvim-treesitter.git"
@@ -41,16 +62,16 @@ declare -A colorschemes=(
     ["gruvbox.nvim"]="https://github.com/ellisonleao/gruvbox.nvim.git"
 )
 
-printf "Cloning plugin repositories...\n"
+printf "\nCLONING PLUGIN REPOSITORIES...\n"
 for name in "${!plugins[@]}"; do
-    printf " -> $name\n"
+    printf "  git clone '$name'\n"
     git clone --depth 1 "${plugins[$name]}" "$NVIM_PLUGINS_DIR/$name"
 done
 
-printf "Cloning colorscheme repositories...\n"
+printf "\nCLONING COLORSCHEMES REPOSITORIES...\n"
 for name in "${!colorschemes[@]}"; do
-    printf " -> $name\n"
+    printf "  git clone '$name'\n"
     git clone --depth 1 "${colorschemes[$name]}" "$NVIM_COLORSCHEMES_DIR/$name"
 done
 
-printf "\nSetup complete.\n"
+printf "\nSETUP COMPLETE.\n"

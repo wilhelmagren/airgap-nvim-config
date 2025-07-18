@@ -1,5 +1,7 @@
 require('treesitter')
 require('lsp')
+require('completions')
+require('telescope')
 require('keymaps')
 require('colorscheme')
 
